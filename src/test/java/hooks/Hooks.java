@@ -1,9 +1,13 @@
 package hooks;
 
+import java.io.IOException;
+
 import base.BaseClass;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import utils.ConfigReader;
+import utils.ScreenshotUtil;
 
 public class Hooks extends BaseClass {
 
@@ -16,7 +20,15 @@ public class Hooks extends BaseClass {
     }
 
     @After
-    public void closeBrowser() {
+    public void tearDownScenario(
+            Scenario scenario)
+            throws IOException {
+
+        if (scenario.isFailed()) {
+
+            ScreenshotUtil.captureScreenshot(
+                    scenario.getName());
+        }
 
         tearDown();
     }

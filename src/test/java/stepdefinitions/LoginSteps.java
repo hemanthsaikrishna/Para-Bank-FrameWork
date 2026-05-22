@@ -1,11 +1,12 @@
 package stepdefinitions;
 
 import org.testng.Assert;
-
+import java.io.IOException;
 import base.DriverFactory;
 import io.cucumber.java.en.*;
 import pages.LoginPage;
 import utils.ExcelUtils;
+import utils.ScreenshotUtil;
 
 public class LoginSteps {
 
@@ -53,7 +54,8 @@ public class LoginSteps {
     }
 
     @Then("user should navigate to account overview page")
-    public void verifyLogin() {
+    public void verifyLogin() throws IOException {
+    	
 
         String actualUrl =
                 DriverFactory.getDriver()
@@ -64,5 +66,7 @@ public class LoginSteps {
         Assert.assertTrue(
                 actualUrl.contains("overview"),
                 "Login Failed!");
+        ScreenshotUtil.captureScreenshot("Valid_Login");
     }
+    
 }
